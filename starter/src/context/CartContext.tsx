@@ -1,4 +1,4 @@
-import { createContext, useContext, type Dispatch, type ReactNode } from "react";
+import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from "react";
 import { cartReducer, initialCartState } from "../reducer/cartReducer";
 import type { CartAction, CartState } from "../types";
 
@@ -16,20 +16,18 @@ const CartContext = createContext<CartContextValue | null>(null);
 // ----------------------------------------------------------------------------
 // 🔧 TODO 3 : useReducer + Context
 // ----------------------------------------------------------------------------
-// C'est ici que useReducer et Context se rejoignent : useReducer centralise
-// la LOGIQUE de mise à jour (le reducer que tu as écrit au TODO 2), Context
-// rend `state`/`dispatch` accessibles PARTOUT dans l'arbre sans "prop
-// drilling". Inspire-toi du ThemeContext vu en cours (support useReducer,
-// diapo "THEMECONTEXT AVEC USEREDUCER") : structure identique, domaine
-// différent.
 export function CartProvider({ children }: { children: ReactNode }) {
   // TODO 3.1 : appelle useReducer avec `cartReducer` et `initialCartState`
-  // pour obtenir `state` et `dispatch`. (Import à ajouter : `useReducer`
-  // depuis "react".)
+  // pour obtenir `state` et `dispatch`.
+  const [state, dispatch] = useReducer(cartReducer, initialCartState);
 
   // TODO 3.2 : remplace le fragment ci-dessous par
   // <CartContext.Provider value={{ state, dispatch }}>{children}</CartContext.Provider>
-  return <>{children}</>; // 🔧 à remplacer
+  return (
+    <CartContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CartContext.Provider>
+  );
 }
 
 /**
