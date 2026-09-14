@@ -34,39 +34,39 @@ export function cartReducer(state: CartState, action: CartAction): CartState {
 		case "ADD_ITEM": {
 			// TODO 2.1 : renvoie un nouvel état dont `lines` vaut
 			// addLine(state.lines, action.product).
-			return state;
+			return { ...state, lines: addLine(state.lines, action.product) };
 		}
 
 		case "INCREMENT_ITEM": {
 			// TODO 2.2 : même principe, avec incrementLine(state.lines, action.productId).
-			return state;
+			return { ...state, lines: incrementLine(state.lines, action.productId) };
 		}
 
 		case "DECREMENT_ITEM": {
 			// TODO 2.3 : même principe, avec decrementLine(state.lines, action.productId).
-			return state;
+			return { ...state, lines: decrementLine(state.lines, action.productId) };
 		}
 
 		case "REMOVE_ITEM": {
 			// TODO 2.4 : même principe, avec removeLine(state.lines, action.productId).
-			return state;
+			return { ...state, lines: removeLine(state.lines, action.productId) };
 		}
 
 		case "APPLY_DISCOUNT_CODE": {
 			// TODO 2.5 : même principe, avec applyDiscountCode(state, action.code)
 			// (celle-ci renvoie déjà l'état COMPLET, pas juste `lines`).
-			return state;
+			return applyDiscountCode(state, action.code);
 		}
 
 		case "TOGGLE_HAPPY_HOUR": {
 			// TODO 2.6 : inverse `state.happyHour`.
-			return state;
+			return { ...state, happyHour: !state.happyHour };
 		}
 
 		case "RESET_CART": {
 			// TODO 2.7 : reviens à l'état initial (panier vide, pas de remise,
 			// happy hour désactivée).
-			return state;
+			return initialCartState;
 		}
 
 		default:
