@@ -55,6 +55,16 @@ export interface CartState {
 //   - "TOGGLE_HAPPY_HOUR"   → active/désactive le happy hour (pas de payload)
 //   - "RESET_CART"          → vide le panier (pas de payload)
 //
+
+export type CartAction =
+  | { type: "ADD_ITEM"; product: Product }
+  | { type: "INCREMENT_ITEM"; productId: string }
+  | { type: "DECREMENT_ITEM"; productId: string }
+  | { type: "REMOVE_ITEM"; productId: string }
+  | { type: "APPLY_DISCOUNT_CODE"; code: string }
+  | { type: "TOGGLE_HAPPY_HOUR" }
+  | { type: "RESET_CART" };
+
 // Tant que ce type vaut `never`, `cartReducer.ts` ne compilera pas
 // correctement : c'est normal, complète-le AVANT de passer au TODO 2.
-export type CartAction = never; // 🔧 à remplacer par ton union discriminée
+//export type CartAction = never; // 🔧 à remplacer par ton union discriminée
