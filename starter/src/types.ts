@@ -40,21 +40,11 @@ export interface CartState {
 // ----------------------------------------------------------------------------
 // 🔧 TODO 1 : Type des actions (union discriminée)
 // ----------------------------------------------------------------------------
-// Remplace `CartAction` ci-dessous par une UNION DISCRIMINÉE qui modélise
-// les 7 actions possibles sur le panier. Chaque variante doit avoir un
-// champ `type` littéral (une chaîne fixe), plus les champs de payload
-// nécessaires. Voir le README, section "TODO 1", pour le détail de chaque
-// action et un exemple sur un autre domaine (le compteur du cours).
-//
-// Les 7 actions à modéliser :
-//   - "ADD_ITEM"            → ajoute un produit au panier (payload: product)
-//   - "INCREMENT_ITEM"      → +1 sur une ligne (payload: productId)
-//   - "DECREMENT_ITEM"      → -1 sur une ligne (payload: productId)
-//   - "REMOVE_ITEM"         → retire une ligne entière (payload: productId)
-//   - "APPLY_DISCOUNT_CODE" → tente d'appliquer un code promo (payload: code)
-//   - "TOGGLE_HAPPY_HOUR"   → active/désactive le happy hour (pas de payload)
-//   - "RESET_CART"          → vide le panier (pas de payload)
-//
-// Tant que ce type vaut `never`, `cartReducer.ts` ne compilera pas
-// correctement : c'est normal, complète-le AVANT de passer au TODO 2.
-export type CartAction = never; // 🔧 à remplacer par ton union discriminée
+export type CartAction =
+  | { type: "ADD_ITEM"; product: Product }
+  | { type: "INCREMENT_ITEM"; productId: string }
+  | { type: "DECREMENT_ITEM"; productId: string }
+  | { type: "REMOVE_ITEM"; productId: string }
+  | { type: "APPLY_DISCOUNT_CODE"; code: string }
+  | { type: "TOGGLE_HAPPY_HOUR" }
+  | { type: "RESET_CART" };
