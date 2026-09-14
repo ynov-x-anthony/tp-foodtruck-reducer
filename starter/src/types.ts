@@ -57,4 +57,10 @@ export interface CartState {
 //
 // Tant que ce type vaut `never`, `cartReducer.ts` ne compilera pas
 // correctement : c'est normal, complète-le AVANT de passer au TODO 2.
-export type CartAction = never; // 🔧 à remplacer par ton union discriminée
+export type CartAction = | { type: "ADD_ITEM"; payload: Product}
+	                       | { type: "INCREMENT_ITEM"; payload: string}
+	                       | { type: "DECREMENT_ITEM"; payload: string}
+                         | { type: "REMOVE_ITEM"; payload: string }
+                         | { type: "APPLY_DISCOUNT_CODE"; payload: string }
+                         | { type: "TOGGLE_HAPPY_HOUR",}
+                         | { type: "RESET_CART" }
