@@ -1,4 +1,4 @@
-import { createContext, useContext, type Dispatch, type ReactNode } from "react";
+import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from "react";
 import { cartReducer, initialCartState } from "../reducer/cartReducer";
 import type { CartAction, CartState } from "../types";
 
@@ -7,7 +7,7 @@ interface CartContextValue {
   dispatch: Dispatch<CartAction>;
 }
 
-// On initialise le Context à `null` plutôt qu'à une fausse valeur par
+// On initialise le Context à `null` plutôt qu'à une fausse valeur par 
 // défaut : ça permet à `useCart()` (plus bas) de détecter clairement un
 // usage en dehors du <CartProvider>, au lieu de laisser un bug silencieux
 // se produire.
@@ -23,13 +23,11 @@ const CartContext = createContext<CartContextValue | null>(null);
 // diapo "THEMECONTEXT AVEC USEREDUCER") : structure identique, domaine
 // différent.
 export function CartProvider({ children }: { children: ReactNode }) {
-  // TODO 3.1 : appelle useReducer avec `cartReducer` et `initialCartState`
-  // pour obtenir `state` et `dispatch`. (Import à ajouter : `useReducer`
-  // depuis "react".)
+  const [state, dispatch] = useReducer(cartReducer, initialCartState);
 
   // TODO 3.2 : remplace le fragment ci-dessous par
   // <CartContext.Provider value={{ state, dispatch }}>{children}</CartContext.Provider>
-  return <>{children}</>; // 🔧 à remplacer
+  return <CartContext.Provider value={{ state, dispatch }}>{children}</CartContext.Provider>; // 🔧 à remplacer
 }
 
 /**
